@@ -1,8 +1,9 @@
 #pragma once
 #include <Arduino.h>
-#include <Thermocouple.h>
-#include <MAX6675_Thermocouple.h>
-#include <SmoothThermocouple.h>
+// #include <Thermocouple.h>
+// #include <MAX6675_Thermocouple.h>
+// #include <SmoothThermocouple.h>
+#include <Adafruit_MAX31855.h>
 #include "Constants.h"
 #include "PinConfig.h"
 
@@ -13,8 +14,8 @@
 class CroasterCore
 {
 private:
-    Thermocouple *thermocoupleBT;
-    Thermocouple *thermocoupleET;
+    Adafruit_MAX31855 *thermocoupleBT;
+    Adafruit_MAX31855 *thermocoupleET;
 
     double etHistory[60] = {}, btHistory[60] = {}, timeHistory[60] = {};
     bool historyInitialized = false;
@@ -41,7 +42,7 @@ private:
      * @param thermocouple Pointer to the thermocouple instance.
      * @return The temperature in Celsius.
      */
-    double readCelcius(Thermocouple *thermocouple);
+    double readCelcius(Adafruit_MAX31855 *thermocouple);
 
     /**
      * @brief Reads sensor data and updates internal state.

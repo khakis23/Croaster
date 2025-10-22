@@ -8,7 +8,7 @@
 
 * Supports **NodeMCU ESP8266** (WiFi only)
 * Supports **ESP32C3 Super Mini** (WiFi & BLE)
-* Real-time monitoring of **two MAX6675 sensors** (ET and BT)
+* Real-time monitoring of **two ~~MAX6675~~ MAX3185X sensors** (ET and BT)
 * Visual output on a **128x64 OLED display** (SSD1306, I2C)
 * WiFi communication via **WebSocket**, compatible with:
   + [**Artisan Roaster Scope**](https://artisan-scope.org/)
@@ -23,7 +23,7 @@
 
 * 1× [NodeMCU ESP8266](images/NodeMCU-ESP8266.png) or [ESP32C3 Super Mini](images/ESP32C3-Super-Mini.png)
 * 1× [128x64 OLED display (SSD1306, I2C)](images/OLED-Display.png)
-* 2× [MAX6675 thermocouple sensor modules](images/MAX6675.png)
+* 2× ~~[MAX6675 thermocouple sensor modules](images/MAX6675.png)~~ MAX31855
 * 2× [K-type thermocouple probes](images/Type-K-thermocouple.png)
 
 ---
@@ -139,6 +139,8 @@ If your Croaster is already connected to your home WiFi, and your laptop is on t
 2. Enter the IP address assigned to Croaster (you can find this on the Croaster OLED screen or serial log).
 3. Use the configuration shown here:
     ![image](images/Connect-Artisan-Same-Network.png)
+4. Ensure Config → Devices → [Meter] is set to WebSocket.
+    ![image](images/Connect-Artisan-Meter.png)
 
 ---
 

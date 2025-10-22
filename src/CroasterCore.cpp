@@ -6,9 +6,8 @@
 CroasterCore::CroasterCore(bool dummyMode)
     : useDummyData(dummyMode)
 {
-
-    thermocoupleBT = new SmoothThermocouple(new MAX6675_Thermocouple(SCK_PIN, CS_PIN_BT, SO_PIN), SMOOTHING_FACTOR);
-    thermocoupleET = new SmoothThermocouple(new MAX6675_Thermocouple(SCK_PIN, CS_PIN_ET, SO_PIN), SMOOTHING_FACTOR);
+    thermocoupleBT = new Adafruit_MAX31855(SCK_PIN, CS_PIN_BT, SO_PIN);
+    thermocoupleET = new Adafruit_MAX31855(SCK_PIN, CS_PIN_ET, SO_PIN);
 }
 
 double CroasterCore::convertTemperature(double tempCelsius)
@@ -22,7 +21,7 @@ double CroasterCore::convertTemperature(double tempCelsius)
     return tempCelsius;
 }
 
-double CroasterCore::readCelcius(Thermocouple *thermocouple)
+double CroasterCore::readCelcius(Adafruit_MAX31855 *thermocouple)
 {
     double value = thermocouple->readCelsius();
 

@@ -105,7 +105,7 @@ void WebSocketManager::broadcastData()
     {
         lastSend = now;
 
-        String jsonData = croaster->getJsonData();
+        String jsonData = croaster->getJsonData("pushMessage");  // tell Artisan it's a push update
         server.broadcastTXT(jsonData);
 
         debugln("# [SOCKET-JSON] " + jsonData);

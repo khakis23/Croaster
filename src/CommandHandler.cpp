@@ -13,8 +13,8 @@ CommandHandler::CommandHandler(CroasterCore &core, DisplayManager &display)
 
 void CommandHandler::begin()
 {
-    pinMode(LED_BUILTIN, OUTPUT);
-    digitalWrite(LED_BUILTIN, LED_OFF);
+    // pinMode(LED_BUILTIN, OUTPUT);
+    // digitalWrite(LED_BUILTIN, LED_OFF);
 }
 
 void CommandHandler::loop()
@@ -24,7 +24,7 @@ void CommandHandler::loop()
     if (blinking && now - lastBlinkTime >= blinkDelay)
     {
         ledState = !ledState;
-        digitalWrite(LED_BUILTIN, ledState ? LED_ON : LED_OFF);
+        // digitalWrite(LED_BUILTIN, ledState ? LED_ON : LED_OFF);
         displayManager.blinkIndicator(ledState);
         lastBlinkTime = now;
         blinkCount++;
@@ -32,7 +32,7 @@ void CommandHandler::loop()
         if (blinkCount >= blinkTotal)
         {
             blinking = false;
-            digitalWrite(LED_BUILTIN, LED_OFF);   // turn off when done
+            // digitalWrite(LED_BUILTIN, LED_OFF);   // turn off when done
             displayManager.blinkIndicator(false); // turn off when done
         }
     }
