@@ -46,6 +46,10 @@ void DisplayManager::drawHeader()
         text = ipAddr;
     }
 
+    // TODO battery level
+    display.drawRect(114, 0, 14, 7, SSD1306_WHITE);
+    display.drawRect(113, 2, 1, 3, SSD1306_WHITE);
+
     display.setTextSize(1);
     display.setCursor(0, 0);
     display.print(text);
@@ -56,7 +60,7 @@ void DisplayManager::drawTemperature(String label, double temp, double ror, int 
     if (!hasDisplay)
         return;
 
-    String tempText = isnan(temp) ? "N/A" : String(temp, 1) + tempUnit;
+    String tempText = isnan(temp) ? "" : String(temp, 1) + tempUnit;
     int tempX = display.width() - (18 * tempText.length()) + 3;
 
     display.setTextSize(1);
@@ -114,7 +118,28 @@ bool DisplayManager::isOledPresent()
     Wire.begin();
     delay(100);
 
-    Wire.beginTransmission(i2cAddress);
+    struct Pair { int sda, scl; };
+    const Pair pinCandidates[] = { {8,9}, {6,7}, {4,5}, {2,3} };
+    const uint8_t addrCandidates[] = { i2cAddress, 0x3C, 0x3D };
+
+    // keeping AI-gen debugging cuz why not
+    for (auto p : pinCandidates) {
+        Wire.end();                  // reset I2C before reconfig
+        Wire.begin(p.sda, p.scl);
+        Wire.setClock(400000);
+        delay(50);
+
+        for (uint8_t a : addrCandidates) {
+        Wire.beginTransmission(a);
+        if (Wire.endTransmission() == 0) {
+            i2cAddress = a;
+            debugln(String("# OLED found at 0x") + String(a, HEX) +
+                    " on SDA=" + String(p.sda) + " SCL=" + String(p.scl));
+            return true;
+            }
+        }
+    }
+
     return Wire.endTransmission() == 0;
 }
 

@@ -24,7 +24,7 @@ private:
 
     double correctionBt = 0, correctionEt = 0;
 
-    String tempUnit = "C";
+    String tempUnit = "F";
 
     unsigned long intervalSend = 3;
 
